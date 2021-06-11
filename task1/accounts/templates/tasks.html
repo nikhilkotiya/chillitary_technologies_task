@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All data</h1>
+    {% for i in Tasks %}
+    <h2>
+    id- {{i.id}},
+    title-{{i.task_title}},  
+    user-{{i.user}},
+    discription-{{i.task_description}},
+    data-{{i.date}}
+    </h2>
+    {% if i.image %}
+    <img src="{{i.image.url}}" alt="not found"  style= "width:300px;">
+    {% endif %}
+    <br>
+    {% endfor %}
+</body>
+</html>

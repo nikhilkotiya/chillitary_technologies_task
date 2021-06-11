@@ -21,5 +21,5 @@ class Tasks(models.Model):
     user=models.ForeignKey(User,on_delete=models.PROTECT,null=True)
     task_title=models.CharField(max_length=200)
     task_description=models.CharField(max_length=2000,null=True)
-    task_pic=models.FileField(upload_to="images", null=True, blank=True)
+    image=models.ImageField(upload_to="images", null=True, blank=True)
     date=models.DateTimeField(default=timezone.now)
