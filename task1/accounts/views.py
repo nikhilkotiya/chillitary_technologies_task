@@ -13,27 +13,30 @@ class SignUpView(generic.CreateView):
     template_name = 'signup.html'
 @csrf_exempt
 def login_view(request):
-    username = request.POST.get("username")
-    password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
-    print(user)
-    if user is not None:
-        return redirect('/signup/')
-    else:
-        error="wrong username or password"
-        return render(request,"login.html",{"e":error})
+    if request.method=="POST":
+        username = request.POST.get("username")
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            return redirect('/signup/')
+        else:
+            error="wrong username or password"
+            return render(request,"login.html",{"e":error})
     return render(request,"login.html")
     
 def logout_view(request):
     logout(request)
     return HttpResponse("Hello, world. This is a logout page")
 
-
+@csrf_exempt
 def task(request):
     if request.method=="POST":
         form = TaskF(request.POST)
         if form.is_valid():
-            return HttpResponse('/thanks/')
+            data=form.cleaned_data
+            form.save()
+            return HttpResponse('save')
     else:
         form = TaskF()
     return render(request, 'task.html', {'form': form})

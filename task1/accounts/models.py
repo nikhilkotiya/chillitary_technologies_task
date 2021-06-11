@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Tasks(models.Model):
     user=models.ForeignKey(User,on_delete=models.PROTECT,null=True)
-    task_title=models.CharField(max_length=200, validators=[MinLengthValidator(4)])
+    task_title=models.CharField(max_length=200)
     task_description=models.CharField(max_length=2000,null=True)
     task_pic=models.FileField(upload_to="images", null=True, blank=True)
     date=models.DateTimeField(default=timezone.now)
