@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from .models import User,Tasks
-from  .forms import SignUpForm,TaskF,User
+from  .forms import SignUpForm,TaskF,UserF,usernamevalidator,usernamefvalidator
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # class SignUpView(generic.CreateView):
@@ -19,6 +19,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def signup(request):
     if request.method=="POST":
         if not User.objects.filter(username=request.POST["username"]).exists():
+            use = request.POST["username"]
+            print(usernamevalidator(use))
+            if usernamevalidator(use) is False:
+                context="Username should end with 1/0"
+                return render(request,"signup.html",{"errorU":context})
+            if  usernamefvalidator(use) is False:
+                context="Username should start with a/A"
+                return render(request,"signup.html",{"errorA":context})               
             if request.POST["password"]==request.POST["rpassword"]:
                 if (len(request.POST["password"]) > 7):
                     data=User()
