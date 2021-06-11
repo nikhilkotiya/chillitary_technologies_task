@@ -7,6 +7,20 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username',)
 
+class UserF(forms.ModelForm):
+    class Meta:
+        model=User
+        fields='__all__'
+    def checkusername(self):
+        a=self.username[-1:]
+        b=self.username[1:]
+        if((a!=1) or (a!=0)):
+            raise forms.ValidationError("Last letter should be end with 1/0")
+        
+        
+        if((b!="A") or (b!='a')):
+            raise forms.ValidationError("letter should be satrt with a/A")
+        return self.username
 class TaskF(forms.ModelForm):
     class Meta:
         model = Tasks
@@ -20,3 +34,5 @@ class TaskF(forms.ModelForm):
                 "task tile character must be greater then 10"
                 )
         return data
+
+    

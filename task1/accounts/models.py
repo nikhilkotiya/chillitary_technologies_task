@@ -5,6 +5,7 @@ from .manager import MyUserManager
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.exceptions import ValidationError
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     username=models.CharField(max_length=20,unique=True)
@@ -16,6 +17,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
     objects = MyUserManager()
+
+    def __str__(self):
+        return self.username
+
 
 class Tasks(models.Model):
     user=models.ForeignKey(User,on_delete=models.PROTECT,null=True)

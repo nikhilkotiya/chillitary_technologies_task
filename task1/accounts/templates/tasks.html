@@ -21,5 +21,14 @@
     {% endif %}
     <br>
     {% endfor %}
+
+
+    {% if Tasks.has_previous %}
+    <a href="?page={{Tasks.previous_page_number}}">previous</a>
+    {% endif %}
+    <h2>Page Number - {{Tasks.number}}</h2>
+    {% if Tasks.has_next %}
+    <a href="?page={{Tasks.next_page_number}}">Next</a>
+    {% endif %}
 </body>
 </html>

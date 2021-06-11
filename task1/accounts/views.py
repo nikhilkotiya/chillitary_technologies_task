@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from .models import User,Tasks
-from  .forms import SignUpForm,TaskF
+from  .forms import SignUpForm,TaskF,User
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # class SignUpView(generic.CreateView):
@@ -16,7 +16,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #     template_name = 'signup.html'
 
 
-def signuo(request):
+def signup(request):
     if request.method=="POST":
         if not User.objects.filter(username=request.POST["username"]).exists():
             if request.POST["password"]==request.POST["rpassword"]:
@@ -64,21 +64,18 @@ def task(request):
         if form.is_valid():
             data=form.cleaned_data
             form.save()
-            return HttpResponse('save')
+            return redirect('/all_data')
     else:
         form = TaskF()
     return render(request, 'task.html', {'form': form})
-
 def tasks(request):
-    task=Tasks.objects.all()
-    p = Paginator(tasks, 5) 
+    task=Tasks.objects.all().order_by("id")
+    p = Paginator(task, 5)
     page_number = request.GET.get('page')
-    try:
-        page_obj = p.get_page(page_number)  
-    except PageNotAnInteger:
-        page_obj = p.page(1)
-    except EmptyPage:  
-        page_obj = p.page(p.num_pages)
-    context = {'page_obj': page_obj}
-    return render(request,"tasks.html",context)
-
+    page_obj = p.get_page(page_number)  
+    # except PageNotAnInteger:
+    #     page_obj = p.page(1)
+    # except EmptyPage:  
+    #     page_obj = p.page(p.num_pages)
+    # context = {'page_obj': page_obj}
+    return render(request,"tasks.html",{"Tasks":page_obj})
