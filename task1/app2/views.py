@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Genre
+from .models import Table
 # Create your views here.
-def show_genres(request):
-    return render(request, "index.html", {'genres': Genre.objects.all()})
+def data(request):
+    return render(request, "index.html", {'data': Table.objects.all()})

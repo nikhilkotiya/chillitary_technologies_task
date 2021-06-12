@@ -9,7 +9,7 @@
 <body>
     {% load mptt_tags %}
 <ul>
-    {% recursetree genres %}
+    {% recursetree data %}
         <li>
             {{ node.title }}
             {% if not node.is_leaf_node %}
