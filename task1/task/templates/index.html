@@ -8,6 +8,15 @@
 </head>
 <body>
     
-    {{x}}
+
+    {% for i in data %}
+    {% if i.parent != None %}
+    - {{i.title}} {{i.parent.id}}
+    {% endif %}
+    {% if i.parent == None %}
+    {{i.title}} {{i.parent}}
+    {% endif %}
+    <br>
+    {% endfor %}
 </body>
 </html>

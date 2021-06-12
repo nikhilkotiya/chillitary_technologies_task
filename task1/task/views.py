@@ -3,4 +3,4 @@ from .models import Table
 # Create your views here.
 def task(request):
     data=Table.objects.all()
-    return render(request,"all_data.html" ,{"x":data})
+    return render(request,"index.html",{"data":data})
