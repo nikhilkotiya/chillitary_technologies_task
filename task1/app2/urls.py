@@ -1,0 +1,6 @@
+from django.urls import path,include
+from django.conf.urls.static import static
+from .import views
+urlpatterns = [
+    path('test2/',views.show_genres),
+]
